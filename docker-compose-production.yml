@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  nginx:
+    image: ${REGISTRY}/stocktaking-frontend-nginx:${IMAGE_TAG}
+    restart: always
+    environment:
+      VUE_APP_API_URL: https://api.stocktaking.tech
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/html:/var/www/html:ro

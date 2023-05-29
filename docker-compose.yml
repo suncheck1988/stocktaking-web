@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  node:
+    image: node:14
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    tty: true
+    ports:
+      - "${NODE_PORT}:8080"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: development/nginx/Dockerfile
+    restart: always
+    ports:
+      - "${NGINX_PORT}:80"
+    volumes:
+      - ./:/var/www
